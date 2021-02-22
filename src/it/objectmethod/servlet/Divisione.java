@@ -8,25 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Divisione extends HttpServlet {
+	String result = "";
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
-			int numero1 = Integer.parseInt(req.getParameter("num1"));
-			int numero2 = Integer.parseInt(req.getParameter("num2"));
+			int dividendo = Integer.parseInt(req.getParameter("num1"));
+			int divisore = Integer.parseInt(req.getParameter("num2"));
 
-			if ((Integer.parseInt(req.getParameter("num2"))) == 0) {
-				String result = "Inserisci numero 2 diverso da 0!!!";
-				req.setAttribute("risultato", result);
-				req.getRequestDispatcher("index.jsp").forward(req, resp);
+			if (divisore == 0) {
+				result = "Inserisci numero 2 diverso da 0!!!";
 			} else {
-				int result = numero1 / numero2;
-				req.setAttribute("risultato", result);
-				req.getRequestDispatcher("index.jsp").forward(req, resp);
+				result = "" + (dividendo / divisore);
+
 			}
 		} catch (Exception e) {
 
 			System.out.println("Errore!!!");
-
+			result = "Errore nel server";
 		}
+		req.setAttribute("risultato", result);
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
 	}
 }
